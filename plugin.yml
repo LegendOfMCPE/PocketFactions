@@ -50,6 +50,9 @@ permissions:
           pocketfactions.cmd.f.unclaim:
             description: Allow using subcommand /f unclaim
             default: true
+          pocketfactions.cmd.f.autoclaim:
+            description: Allow using subcommand /f autoclaim
+            default: true
           pocketfactions.cmd.f.unclaimall:
             description: Allow using subcommand /f unclaimall
             default: true
