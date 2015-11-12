@@ -1,54 +1,45 @@
 ---
-# plugins that provide data to PocketFactions
+
+# CONFIGURATION FILE FOR POCKETFACTIONS
+# Unless otherwise specified, all the file paths required in this config file must be relative to the plugin's data folder (the directory this config file is in)
+
+# This lets you select the type of data providers to use for PF (PocketFactions).
 dataProviders:
-  # the plugin to provide economy data to PocketFactions
-  # supported plugin(s): xEcon
-  # Reminder: xEcon is recommended because it provides the most extensive API to PocketFactions.
-  economy: xEcon
-  # the plugin to provide statistics to PocketFactions
-  statistics: StatsCore
-# worlds where PocketFactions is enabled in
-factionWorlds:
-  - factions
-database:
-  # Database type to use.
-  # Supported database types:
-  # - pfdb: create a pfdb file (location specified below), encoded in PocketFactions database binary format
-  # - mysql: put the data on a MySQL database
-  name: pfdb
-  pfdb:
-    location: factions.pfdb
-  mysql:
-    host: localhost
-    username: root
-    password: ""
-    schema: pocketfactions
-    port: 3306
-# default values that apply to a faction when it is created
-defaultValues:
-  # default economy values
-  econ:
-    # default cash
-    cash: 10
-    bank: 100
-  # default faction ranks
-  ranks:
-    - name: leader
-  # The rank that is give to the faction founder.
-  founderRank: leader
-  # The rank that is given to any new members who join the faction.
-  defaultRank: member
-  # default faction relation permissions. Do NOT remove the enemy relation.
-  relations:
-    - name: foe
-      permissions:
-        - fight
-        - enter
-      excluded permissions:
-    - name: ally
-      permissions:
-        - all
-      excluded permissions: fight
-  # The relation name that refers to the enemy relation. Enemy relation is a special relation that can be declared without mutual agreement, cannot be deleted by any factions, and whose permissions cannot be modified by a faction (but always refer to this config file)
-  enemyRelation: foe
+  # The "factions" data provider saves the information about factions and faction members, as well as their relationship.
+  factions:
+    # available types:
+    # > mysql
+    # > sqlite3
+    # Note: MySQL will be run asynchronously, so it will not cause server lag.
+    # Also note that if the data on MySQL are changed externally, it is undefined whether they will be loaded immediately or not, but they will be loaded after server restart (if the plugin didn't somehow overwrite it)
+    type: mysql
+
+    # If you chose "mysql", please configure these:
+    mysql:
+      # host address of the database. "localhost" is accepted.
+      host: "127.0.0.1"
+      # note: you are discouraged to use "root" as the user.
+      username: "root"
+      # password to the database for the account in "username". Remember not to share this file!
+      password: ""
+      # schema, or "database", to use for PocketFactions
+      schema: "pf"
+      # port that the database is hosted on.
+      port: 3306
+
+    # if you chose "sqlite3", please configure these:
+    sqlite3:
+      # the path to save the database
+      path: factions.db
+
+# This section is about how PocketFactions connects with other plugins.
+integrations:
+  # supported: none, SimpleAuth
+  auth: none
+
+# This section is about the core mechanism of PocketFactions
+mechanism:
+  # This defines the plot margin size. If this is "8", each plot will be 8x8 blocks big.
+  # This MUST be one of "1", "2", "4", "8" or "16"!!! If you put invalid values, PocketFactions will pick the default value.
+  plotSize: 8
 ...

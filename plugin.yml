@@ -1,9 +1,0 @@
-name: PocketFactions
-author: LegendsOfMCPE
-api: [1.0.0]
-version: 2.0.0
-load: POSTWORLD
-main: pocketfactions\PocketFactions
-prefix: PF
-website: https://github.com/LegendOfMCPE/PocketFactions
-softdepend: [SimpleAuth, StatsCore, xEcon] # TODO: put all supported plugins here
