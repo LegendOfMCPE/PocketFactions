@@ -20,8 +20,10 @@ use pocketfactions\PocketFactions;
 use pocketmine\Player;
 
 abstract class CachedDataProvider implements FactionsDataProvider{
+	const NO_FACTION = -1;
+
 	/** @var Faction[] $factions indexed by ID */
-	private $factions = [];
+	private $factions = [self::NO_FACTION => null];
 
 	/** @var int[] array ("faction_name" => fid ) */
 	private $nameToFID = [];
@@ -40,17 +42,41 @@ abstract class CachedDataProvider implements FactionsDataProvider{
 			$callback($this->factions[$this->nameToFID[$name]]);
 			return;
 		}
+		// TODO change $callbackId to reference a callable that adds the cache.
 		$callbackId = $this->main->getObjectPool()->store($callback);
 		$this->getFactionByNameImpl($name, $callbackId);
 	}
 	protected abstract function getFactionByNameImpl($name, $callbackId);
 
-	public function getFactionById($id){
-		// TODO: Implement getFactionById() method.
+	public function getFactionById($id, callable $callback){
+		if(array_key_exists($id, $this->factions)){
+			$callback($this->factions[$id]);
+			return;
+		}
+		$callbackId = $this->main->getObjectPool()->store($callback);
+		$this->getFactionByIdImpl($id, $callbackId);
 	}
+	protected abstract function getFactionByIdImpl($id, $callbackId);
 
-	public function getFactionForPlayer(Player $player){
-		// TODO: Implement getFactionForPlayer() method.
+	public function getFactionForPlayer(Player $player, callable $callback){
+		$name = strtolower($player->getName());
+		if($this->playerToFID[$name]){
+			$callback($this->factions[$this->playerToFID[$name]]);
+		}
+		$callbackId = $this->main->getObjectPool()->store($callback);
+		$this->getFactionByPlayerImpl($name, $callbackId);
+	}
+	protected abstract function getFactionByPlayerImpl($name, $callbackId);
+
+	public function factionFetchedCallback(Faction $faction){
+		$this->factions[$faction->getId()] = $faction;
+		$this->nameToFID[$faction->getName()] = $faction->getId();
+	}
+	public function linkPlayerToFactionCache($name, Faction $faction){
+		$this->playerToFID[$name] = $faction->getId();
+	}
+	public function unlinkPlayerFromFactionCache($name){
+		$this->playerToFID[$name] = -1;
 	}
 
 	public function close(){

@@ -16,6 +16,7 @@
 namespace pocketfactions;
 
 use pocketfactions\config\PFConfig;
+use pocketfactions\faction\FactionRelation;
 use pocketfactions\integration\auth\AuthIntegration;
 use pocketfactions\integration\auth\BaseAuthIntegration;
 use pocketfactions\integration\auth\SimpleAuthIntegration;
@@ -32,10 +33,12 @@ class PocketFactions extends PluginBase{
 
 	public function onLoad(){
 		$this->objectPool = new OrderedObjectPool($this); // OOP = object-oriented programming :D
+
+		FactionRelation::init();
 	}
 
 	public function onEnable(){
-				/////////////////
+		/////////////////
 		// LOAD CONFIG //
 		/////////////////
 		$this->saveDefaultConfig();

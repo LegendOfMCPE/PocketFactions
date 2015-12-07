@@ -19,4 +19,10 @@ class MysqlDataProvider extends CachedDataProvider{
 	protected function getFactionByNameImpl($name, $callbackId){
 		// TODO: Implement getFactionByNameImpl() method.
 	}
+	protected function getFactionByIdImpl($id, $callbackId){
+		// TODO: Implement getFactionByIdImpl() method.
+	}
+	protected function getFactionByPlayerImpl($name, $callbackId){
+		// TODO: Implement getFactionByPlayerImpl() method.
+	}
 }

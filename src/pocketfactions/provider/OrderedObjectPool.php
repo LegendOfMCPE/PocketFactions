@@ -31,6 +31,7 @@ class OrderedObjectPool{
 
 	/**
 	 * @param mixed $object
+	 *
 	 * @return int
 	 */
 	public function store($object){
@@ -55,6 +56,7 @@ class OrderedObjectPool{
 
 	/**
 	 * @param int $id
+	 *
 	 * @return mixed|null
 	 */
 	public function get($id){
@@ -67,7 +69,9 @@ class OrderedObjectPool{
 	}
 	/**
 	 * Warning: avoid using this method to prevent memory leak
+	 *
 	 * @param int $id
+	 *
 	 * @return mixed|null
 	 */
 	public function getWithoutClean($id){

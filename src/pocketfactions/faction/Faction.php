@@ -15,6 +15,17 @@
 
 namespace pocketfactions\faction;
 
-class Faction{
+interface Faction{
+	/**
+	 * Returns the faction's ID
+	 *
+	 * @return int
+	 */
+	public function getId();
 
+	/**
+	 * Returns the faction's name
+	 * @return string
+	 */
+	public function getName();
 }
