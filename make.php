@@ -99,6 +99,6 @@ addDir($phar, realpath("resources"), "resources");
 addDir($phar, realpath("entry"), "entry");
 $phar->stopBuffering();
 
-if(is_file("priv\\postCompile.php")){
-	require_once("priv\\postCompile.php"); // this is for testing
+if(is_file("priv/postCompile.php")){
+	require_once("priv/postCompile.php"); // this is for testing
 }

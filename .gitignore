@@ -98,3 +98,6 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Personal for developers
+bin/id.json
+priv/
