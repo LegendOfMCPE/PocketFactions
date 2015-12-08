@@ -17,6 +17,7 @@ namespace pocketfactions\provider\factions;
 
 use pocketfactions\faction\Faction;
 use pocketfactions\PocketFactions;
+use pocketfactions\utils\PFUtils;
 use pocketmine\Player;
 
 abstract class CachedDataProvider implements FactionsDataProvider{
@@ -38,12 +39,19 @@ abstract class CachedDataProvider implements FactionsDataProvider{
 	}
 
 	public function getFaction($name, callable $callback){
-		if(isset($this->nameToFID[$name])){
+		if(array_key_exists($name, $this->nameToFID)){
 			$callback($this->factions[$this->nameToFID[$name]]);
 			return;
 		}
-		// TODO change $callbackId to reference a callable that adds the cache.
-		$callbackId = $this->main->getObjectPool()->store($callback);
+		$callback2 = function ($faction) use ($callback, $name){
+			if($faction instanceof Faction){
+				PFUtils::identical($faction->getName(), $name, "fetched faction name", "requested faction name");
+				$this->factions[$faction->getId()] = $faction;
+				$this->nameToFID[$name] = $faction->getId();
+			}
+			$callback($faction);
+		};
+		$callbackId = $this->main->getObjectPool()->store($callback2);
 		$this->getFactionByNameImpl($name, $callbackId);
 	}
 	protected abstract function getFactionByNameImpl($name, $callbackId);
@@ -53,25 +61,39 @@ abstract class CachedDataProvider implements FactionsDataProvider{
 			$callback($this->factions[$id]);
 			return;
 		}
-		$callbackId = $this->main->getObjectPool()->store($callback);
+		$callback2 = function ($faction) use ($callback, $id){
+			if($faction instanceof Faction){
+				PFUtils::identical($faction->getId(), $id, "fetched faction ID", "requested faction ID");
+				$this->factions[$id] = $faction;
+				$this->nameToFID[$faction->getName()] = $id;
+			}else{
+				$this->factions[$id] = null;
+			}
+			$callback($faction);
+		};
+		$callbackId = $this->main->getObjectPool()->store($callback2);
 		$this->getFactionByIdImpl($id, $callbackId);
 	}
 	protected abstract function getFactionByIdImpl($id, $callbackId);
 
 	public function getFactionForPlayer(Player $player, callable $callback){
 		$name = strtolower($player->getName());
-		if($this->playerToFID[$name]){
+		if(array_key_exists($name, $this->playerToFID)){
 			$callback($this->factions[$this->playerToFID[$name]]);
 		}
-		$callbackId = $this->main->getObjectPool()->store($callback);
+		$callback2 = function ($fid) use ($callback, $name){
+			$this->playerToFID[$name] = $fid;
+			if($fid !== self::NO_FACTION){
+				$this->getFactionById($fid, $callback);
+			}else{
+				$callback(null);
+			}
+		};
+		$callbackId = $this->main->getObjectPool()->store($callback2);
 		$this->getFactionByPlayerImpl($name, $callbackId);
 	}
 	protected abstract function getFactionByPlayerImpl($name, $callbackId);
 
-	public function factionFetchedCallback(Faction $faction){
-		$this->factions[$faction->getId()] = $faction;
-		$this->nameToFID[$faction->getName()] = $faction->getId();
-	}
 	public function linkPlayerToFactionCache($name, Faction $faction){
 		$this->playerToFID[$name] = $faction->getId();
 	}

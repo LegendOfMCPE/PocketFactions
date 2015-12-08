@@ -3,14 +3,14 @@
 /*
  * PocketFactions
  *
- * Copyright (C) 2015 PEMapModder
+ * Copyright (C) 2015 LegendsOfMCPE
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * @author PEMapModder
+ * @author LegendsOfMCPE
  */
 
 use pocketfactions\PocketFactions;
@@ -99,6 +99,6 @@ addDir($phar, realpath("resources"), "resources");
 addDir($phar, realpath("entry"), "entry");
 $phar->stopBuffering();
 
-if(is_file("priv/postCompile.php")){
-	require_once("priv/postCompile.php"); // this is for testing
+if(is_file("priv\\postCompile.php")){
+	require_once("priv\\postCompile.php"); // this is for testing
 }
