@@ -13,6 +13,9 @@
  * @author LegendsOfMCPE
  */
 
+use pocketfactions\faction\FactionPrimaryAccess;
+use pocketfactions\faction\FactionSecondaryAccess;
+use pocketfactions\faction\FactionTertiaryAccess;
 use pocketfactions\PocketFactions;
 
 chdir(__DIR__);
@@ -97,8 +100,28 @@ $phar->addFromString("plugin.yml", $pluginYml);
 addDir($phar, realpath("src"), "src");
 addDir($phar, realpath("resources"), "resources");
 addDir($phar, realpath("entry"), "entry");
+require_once "src/pocketfactions/faction/FactionPrimaryAccess.php";
+require_once "src/pocketfactions/faction/FactionSecondaryAccess.php";
+require_once "src/pocketfactions/faction/FactionTertiaryAccess.php";
+$consts = array_merge(
+	loadFactionAccessConstants(FactionPrimaryAccess::class),
+	loadFactionAccessConstants(FactionSecondaryAccess::class),
+	loadFactionAccessConstants(FactionTertiaryAccess::class)
+);
 $phar->stopBuffering();
 
-if(is_file("priv\\postCompile.php")){
-	require_once("priv\\postCompile.php"); // this is for testing
+if(is_file("priv/postCompile.php")){
+	require_once("priv/postCompile.php"); // this is for testing
+}
+
+function loadFactionAccessConstants($className){
+	$output = [];
+	$class = new ReflectionClass($className);
+	$file = $class->getFileName();
+	foreach($class->getConstants() as $constant => $v){
+		preg_match('/\*\*[ \t\n\r]*([^\*]+)\*/[ \t\n\r]*const ' . $constant . ';', file_get_contents($file), $match);
+		$comment = $match[1];
+		$output[$constant] = $comment;
+	}
+	return $output;
 }

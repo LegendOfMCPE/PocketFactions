@@ -15,7 +15,34 @@
 
 namespace pocketfactions\faction;
 
+use pocketfactions\PocketFactions;
+
 class FactionRank extends FactionAccess{
+	const FOUNDER_RANK_ID = 0;
+
+	/** @var int */
 	private $id;
+	/** @var string */
 	private $name;
+	/** @var bool */
+	private $superior;
+
+	public function getId(){
+		return $this->id;
+	}
+	public function getName(){
+		return $this->name;
+	}
+	/**
+	 *Returns whether this is a <i>superior</i> rank, i.e. members of this rank can only be kicked, demoted or promoted by the founder.
+	 *
+	 * @return bool
+	 */
+	public function isSuperior(){
+		return $this->superior;
+	}
+
+	public static function defaultDefaultRank(PocketFactions $main){
+		$config = $main->getPFConfig();
+	}
 }

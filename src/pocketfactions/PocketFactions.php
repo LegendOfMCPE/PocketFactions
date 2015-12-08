@@ -65,6 +65,10 @@ class PocketFactions extends PluginBase{
 		}
 	}
 
+	public function getPFConfig(){
+		return $this->pfConfig;
+	}
+
 	/**
 	 * @return OrderedObjectPool
 	 */

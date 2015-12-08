@@ -16,7 +16,7 @@
 namespace pocketfactions\faction;
 
 /**
- * Primary access to the repo, including world editing and PvP.
+ * Primary access to the faction, including world editing and PvP.
  */
 class FactionPrimaryAccess{
 //	@formatter:off

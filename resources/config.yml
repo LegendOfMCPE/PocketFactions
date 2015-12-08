@@ -43,4 +43,9 @@ mechanism:
   # This MUST be one of "1", "2", "4", "8" or "16"!!! If you put invalid values, PocketFactions will pick the default value.
   # WARNING: Updating this will not take effect unless you reset the database.
   plotSize: 8
+
+  # This defines default mechanisms in a faction when a new faction is founded.
+  defaults:
+    # The types of access that
+    defaultRank:
 ...
