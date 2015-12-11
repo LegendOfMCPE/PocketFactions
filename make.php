@@ -13,9 +13,9 @@
  * @author LegendsOfMCPE
  */
 
-use pocketfactions\faction\FactionPrimaryAccess;
-use pocketfactions\faction\FactionSecondaryAccess;
-use pocketfactions\faction\FactionTertiaryAccess;
+use pocketfactions\faction\FactionAccessPrimary;
+use pocketfactions\faction\FactionAccessSecondary;
+use pocketfactions\faction\FactionAccessTertiary;
 use pocketfactions\PocketFactions;
 
 chdir(__DIR__);
@@ -64,8 +64,8 @@ $pluginYml = yaml_emit($manifest = [
 		],
 		"type" => $class,
 		"globalBuildNumber" => $globalBuildId,
-		"typeVersion" => $nextBuildId
-	]
+		"typeVersion" => $nextBuildId,
+	],
 ], YAML_UTF8_ENCODING, YAML_LN_BREAK);
 
 $i = 0;
@@ -98,30 +98,32 @@ $phar->setMetadata($manifest);
 $phar->startBuffering();
 $phar->addFromString("plugin.yml", $pluginYml);
 addDir($phar, realpath("src"), "src");
-addDir($phar, realpath("resources"), "resources");
 addDir($phar, realpath("entry"), "entry");
-require_once "src/pocketfactions/faction/FactionPrimaryAccess.php";
-require_once "src/pocketfactions/faction/FactionSecondaryAccess.php";
-require_once "src/pocketfactions/faction/FactionTertiaryAccess.php";
-$consts = array_merge(
-	loadFactionAccessConstants(FactionPrimaryAccess::class),
-	loadFactionAccessConstants(FactionSecondaryAccess::class),
-	loadFactionAccessConstants(FactionTertiaryAccess::class)
-);
+require_once realpath("src/pocketfactions/faction/FactionAccessPrimary.php");
+require_once realpath("src/pocketfactions/faction/FactionAccessSecondary.php");
+require_once realpath("src/pocketfactions/faction/FactionAccessTertiary.php");
+$consts = [];
+loadFactionAccessConstants(FactionAccessPrimary::class, $consts);
+loadFactionAccessConstants(FactionAccessSecondary::class, $consts);
+loadFactionAccessConstants(FactionAccessTertiary::class, $consts);
+file_put_contents("resources/access.json", json_encode($consts, JSON_PRETTY_PRINT | JSON_BIGINT_AS_STRING));
+addDir($phar, realpath("resources"), "resources");
 $phar->stopBuffering();
 
 if(is_file("priv/postCompile.php")){
 	require_once("priv/postCompile.php"); // this is for testing
 }
 
-function loadFactionAccessConstants($className){
-	$output = [];
+function loadFactionAccessConstants($className, &$output){
 	$class = new ReflectionClass($className);
 	$file = $class->getFileName();
 	foreach($class->getConstants() as $constant => $v){
-		preg_match('/\*\*[ \t\n\r]*([^\*]+)\*/[ \t\n\r]*const ' . $constant . ';', file_get_contents($file), $match);
-		$comment = $match[1];
-		$output[$constant] = $comment;
+		preg_match($regex = '#/\*\*[\n\r\t ]+(\*[^\*]+)+[\n\r\t ]+\*/[\n\r\t ]+const[\n\r\t ]+' . $constant . '[\n\r\t ]+=[\n\r\t ]+#m', file_get_contents($file), $match);
+		$comment = trim(implode("\n", array_map(function ($str){
+			return substr(trim($str), 2);
+		}, explode("\n", $match[1]))));
+		$output[strtolower($constant)] = $comment;
 	}
-	return $output;
 }
+
+exec("git add -A");

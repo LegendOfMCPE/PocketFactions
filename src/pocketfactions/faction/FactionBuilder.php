@@ -89,8 +89,8 @@ class FactionBuilder{
 
 	public static function establishNewFaction(PocketFactions $main, $id, $name, $founder){
 		(new FactionBuilder)->setId($id)
-				->setName($name)
-				->setFounder($founder)
-				->addRank(FactionRank::defaultDefaultRank($main));
+			->setName($name)
+			->setFounder($founder)
+			->addRank(FactionRank::defaultDefaultRank($main));
 	}
 }

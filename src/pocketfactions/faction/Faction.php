@@ -25,6 +25,7 @@ interface Faction{
 
 	/**
 	 * Returns the faction's name
+	 *
 	 * @return string
 	 */
 	public function getName();

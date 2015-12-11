@@ -82,7 +82,7 @@ class FactionAccess{
 
 	/**
 	 * Checks if accessors of this FactionAccess have the tertiary access named <code>$flag</code>.<br>
-	 * If <code>$full</code> is true, <code>true</code> is only returned when all bits of <code>$flag</code>
+	 * If <code>$full</code> is true (default), <code>true</code> is only returned when all bits of <code>$flag</code>
 	 * are enabled. If <code>$full</code> is false, <code>true</code> is returned when any of the bits
 	 * of <code>$flag</code> is enabled.
 	 *

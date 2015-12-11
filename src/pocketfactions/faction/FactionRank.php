@@ -19,13 +19,14 @@ use pocketfactions\PocketFactions;
 
 class FactionRank extends FactionAccess{
 	const FOUNDER_RANK_ID = 0;
+	const FOUNDER_RANK_SUPERIORITY = PHP_INT_MAX;
 
 	/** @var int */
 	private $id;
 	/** @var string */
 	private $name;
-	/** @var bool */
-	private $superior;
+	/** @var int */
+	private $superiority;
 
 	public function getId(){
 		return $this->id;
@@ -34,15 +35,16 @@ class FactionRank extends FactionAccess{
 		return $this->name;
 	}
 	/**
-	 *Returns whether this is a <i>superior</i> rank, i.e. members of this rank can only be kicked, demoted or promoted by the founder.
+	 * Returns the superiority of the rank.
 	 *
-	 * @return bool
+	 * @return int
 	 */
-	public function isSuperior(){
-		return $this->superior;
+	public function isSuperiority(){
+		return $this->superiority;
 	}
 
-	public static function defaultDefaultRank(PocketFactions $main){
+	public static function defaultRanks(PocketFactions $main, &$defaultRank){
 		$config = $main->getPFConfig();
+
 	}
 }

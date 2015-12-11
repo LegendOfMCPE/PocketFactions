@@ -46,6 +46,7 @@ mechanism:
 
   # This defines default mechanisms in a faction when a new faction is founded.
   defaults:
-    # The types of access that
-    defaultRank:
+    # The default "ranks" existing in a faction
+    # You can find a full list of "accesses" that a rank can have, at this website:
+    #
 ...

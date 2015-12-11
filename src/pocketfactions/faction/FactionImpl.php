@@ -27,4 +27,5 @@ class FactionImpl implements Faction{
 	 */
 	public function getName(){
 		// TODO: Implement getName() method.
-	}}
+	}
+}

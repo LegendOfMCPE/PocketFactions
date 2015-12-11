@@ -18,13 +18,27 @@ namespace pocketfactions\faction;
 /**
  * Tertiary access to the faction, namely administrative and executive permissions.
  */
-class FactionTertiaryAccess{
-//	formatter:off
+class FactionAccessTertiary{
+//	@formatter:off
+	/**
+	 * Allows the accessor to handle invitations
+	 */
 	const INVITATIONS       = 0x00000003;
-	const ACCEPT_INVITATION = 0x00000001;
+	/**
+	 * Allows the accessor to accept requests to join the faction
+	 */
+	const ACCEPT_REQUEST    = 0x00000001;
+	/**
+	 * Allows the accessor to send an invitation to a player
+	 */
 	const SEND_INVITATION   = 0x00000002;
+	/**
+	 * Allows the accessor to kick a member out of the faction
+	 */
 	const KICK_MEMBER       = 0x00000010;
+	/**
+	 * Allows the accessor to
+	 */
 	const PROMOTE_MEMBER    = 0x00000020;
-	const DEMOTE_MEMBER     = 0x00000040;
-//	formatter:on
+//	@formatter:on
 }
