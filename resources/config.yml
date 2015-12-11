@@ -47,6 +47,11 @@ mechanism:
   # This defines default mechanisms in a faction when a new faction is founded.
   defaults:
     # The default "ranks" existing in a faction
-    # You can find a full list of "accesses" that a rank can have, at this website:
-    #
+    member:
+      # You can find a full list of "accesses" that a rank can have, at this website:
+      # https://github.com/LegendOfMCPE/PocketFactions/blob/new/resources/access.json
+      # (may be too updated and contain accesses that don't exist in this version
+      accesses:
+        -
+
 ...

@@ -100,5 +100,57 @@ class FactionAccessPrimary{
 	 * Allows the accessor to use beds in the faction's chunks
 	 */
 	const BLOCK_ACTIVATION_BED              = 0x00008000;
+
+	/**
+	 * Protects the accessor from being hurt by players who are not in warring (and hostile, depending on server admins) factions
+	 */
+	const INVULNERABLE                      = 0x00010000;
+
+	/**
+	 * Allows the accessor to claim any kits.
+	 * Claiming is still rate-limited by server admins
+	 */
+	const CLAIM_KITS                        = 0xFF000000;
+
+	/**
+	 * Allows the accessor to claim kit 1.
+	 * This action is still rate-limited by server admins
+	 */
+	const CLAIM_KIT_1                       = 0x01000000;
+	/**
+	 * Allows the accessor to claim kit 2.
+	 * This action is still rate-limited by server admins
+	 */
+	const CLAIM_KIT_2                       = 0x02000000;
+	/**
+	 * Allows the accessor to claim kit 3.
+	 * This action is still rate-limited by server admins
+	 */
+	const CLAIM_KIT_3                       = 0x04000000;
+	/**
+	 * Allows the accessor to claim kit 4.
+	 * This action is still rate-limited by server admins
+	 */
+	const CLAIM_KIT_4                       = 0x08000000;
+	/**
+	 * Allows the accessor to claim kit 5.
+	 * This action is still rate-limited by server admins
+	 */
+	const CLAIM_KIT_5                       = 0x10000000;
+	/**
+	 * Allows the accessor to claim kit 6.
+	 * This action is still rate-limited by server admins
+	 */
+	const CLAIM_KIT_6                       = 0x20000000;
+	/**
+	 * Allows the accessor to claim kit 7.
+	 * This action is still rate-limited by server admins
+	 */
+	const CLAIM_KIT_7                       = 0x40000000;
+	/**
+	 * Allows the accessor to claim kit 8.
+	 * This action is still rate-limited by server admins
+	 */
+	const CLAIM_KIT_8                       = 0x80000000;
 //	@formatter:on
 }

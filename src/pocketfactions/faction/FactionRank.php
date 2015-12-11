@@ -35,7 +35,9 @@ class FactionRank extends FactionAccess{
 		return $this->name;
 	}
 	/**
-	 * Returns the superiority of the rank.
+	 * Returns the superiority of the rank.<br>
+	 * Higher superiority shows that the faction member has more authority.<br>
+	 * A practical usage is that members of lower superiority cannot promote/demote/kick members of higher superiority
 	 *
 	 * @return int
 	 */
