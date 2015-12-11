@@ -118,7 +118,7 @@ function loadFactionAccessConstants($className, &$output){
 	$class = new ReflectionClass($className);
 	$file = $class->getFileName();
 	foreach($class->getConstants() as $constant => $v){
-		preg_match($regex = '#/\*\*[\n\r\t ]+(\*[^\*]+)+[\n\r\t ]+\*/[\n\r\t ]+const[\n\r\t ]+' . $constant . '[\n\r\t ]+=[\n\r\t ]+#m', file_get_contents($file), $match);
+		preg_match($regex = '#/\*\*[\n\r\t ]+((\*[^\*]+)+)[\n\r\t ]+\*/[\n\r\t ]+const[\n\r\t ]+' . $constant . '[\n\r\t ]+=[\n\r\t ]+#m', file_get_contents($file), $match);
 		$comment = trim(implode("\n", array_map(function ($str){
 			return substr(trim($str), 2);
 		}, explode("\n", $match[1]))));
