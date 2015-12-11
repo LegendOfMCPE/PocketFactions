@@ -19,6 +19,16 @@
     "block_activation_chest": "Allows the accessor to open chests in the faction's chunks",
     "block_activation_furnace": "Allows the accessor to open furnace in the faction's chunks",
     "block_activation_bed": "Allows the accessor to use beds in the faction's chunks",
+    "invulnerable": "Protects the accessor from being hurt by players who are not in warring (and hostile, depending on server admins) factions",
+    "claim_kits": "Claiming is still rate-limited by server admins",
+    "claim_kit_1": "This action is still rate-limited by server admins",
+    "claim_kit_2": "This action is still rate-limited by server admins",
+    "claim_kit_3": "This action is still rate-limited by server admins",
+    "claim_kit_4": "This action is still rate-limited by server admins",
+    "claim_kit_5": "This action is still rate-limited by server admins",
+    "claim_kit_6": "This action is still rate-limited by server admins",
+    "claim_kit_7": "This action is still rate-limited by server admins",
+    "claim_kit_8": "This action is still rate-limited by server admins",
     "claim_chunks": "Allows the accessor to claim chunks (if claiming chunks costs a price, spend_money is required too)",
     "spend_money": "Allows the accessor to do actions that cost money",
     "donate_money": "Allows the accessor to donate money into the faction bank",
@@ -29,6 +39,8 @@
     "invitations": "Allows the accessor to handle invitations",
     "accept_request": "Allows the accessor to accept requests to join the faction",
     "send_invitation": "Allows the accessor to send an invitation to a player",
-    "kick_member": "Allows the accessor to kick a member out of the faction",
-    "promote_member": "Allows the accessor to"
+    "kick_member": "Allows the accessor to kick a member (of lower or same superiority) out of the faction",
+    "promote_member": "Allows the accessor to promote a member of a rank of lower superiority to a rank of superiority lower or same as the accessor",
+    "demote_member": "Allows the accessor to demote a member of same or lower superiority",
+    "successor": "If no faction members are successors, the faction will either be automatically disbanded or a successor will be chosen by server admin"
 }
